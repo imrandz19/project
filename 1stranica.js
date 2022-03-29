@@ -1,43 +1,93 @@
 function Radi(){
-    alert("HAHAHAHAHAHAHA");
+    console.log(document.getElementById("from").value);
 };
 
-function myMap(){
-    var mapProp={
-      center:new google.maps.LatLng(43.856430, 18.413029),
-      zoom:11,
-    };
-    var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
-}
-function initMap(){
+var mapProp={
+    center:new google.maps.LatLng(43.856430, 18.413029),
+    zoom:11,
+};
+//   var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
-const directionsRenderer = new google.maps.DirectionsRenderer();
-const directionsService = new google.maps.DirectionsService();
-const map = new google.maps.Map(document.getElementById("googleMap"), {
-    zoom: 11,
-    center: {lat:43.85, lng:18.41},
-})
+var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
-directionsRenderer.setMap(googleMap);
-calculateAndDisplayRoute(directionsService, directionsRenderer);
+var directionsService = new google.maps.DirectionsService();
+var directionsRenderer = new google.maps.DirectionsRenderer();
 
-}
+directionsDisplay.setMap(map);
 
-function calculateAndDisplayRoute(directionsService, directionsRenderer){
-    // const selectedMode = google.maps.TravelMode.DRIVING,
+// function myMap()
+// {    var mapProp={
+//         center:new google.maps.LatLng(43.856430, 18.413029),
+//         zoom:11,
+//     };
+//     //   var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
 
-    directionsService
-    .route({
+//     var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+
+//     var directionsService = new google.maps.DirectionsService();
+//     var directionsRenderer = new google.maps.DirectionsRenderer();
+
+//     directionsDisplay.setMap(map);}
+
+function calculateDistance(){
+    var request = {
         origin: document.getElementById("from").value,
         destination: document.getElementById("to").value,
         travelMode: google.maps.TravelMode.DRIVING,
         unitSystem: google.maps.UnitSystem.METRIC
+    }
+    directionsService.route(request, function(result, status) {
+        if (status === google.maps.DirectionsStatus.OK){
+            const output = document.querySelector('#output');
+            output.innerHTML = "<div class='alert-info'>"+ document.getElementById("from").value + ".<br/>To: " + document.getElementById("to").value + ".<br/></div>"
+            directionsDisplay.setDirections(result)
+        }
+        else {
+            directionsDisplay.setDirections({routes: []})
+            
+        }
     })
-    .then((response) => {
-        directionsRenderer.setDirections(response);
-    })
-    .catch((e) => window.alert("Direction request failed due to " + status));
 }
+
+// function myMap(){
+//     var mapProp={
+//       center:new google.maps.LatLng(43.856430, 18.413029),
+//       zoom:11,
+//     };
+//     var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
+// }
+
+
+// function initMap(){
+
+// const directionsRenderer = new google.maps.DirectionsRenderer();
+// const directionsService = new google.maps.DirectionsService();
+// const map = new google.maps.Map(document.getElementById("googleMap"), {
+//     zoom: 11,
+//     center: {lat:43.85, lng:18.41},
+// })
+
+
+// directionsRenderer.setMap(googleMap);
+// calculateAndDisplayRoute(directionsService, directionsRenderer);
+
+
+// function calculateAndDisplayRoute(directionsService, directionsRenderer){
+//     // const selectedMode = google.maps.TravelMode.DRIVING,
+
+//     directionsService
+//     .route({
+//         origin: document.getElementById("from").value,
+//         destination: document.getElementById("to").value,
+//         travelMode: google.maps.TravelMode.DRIVING,
+//         unitSystem: google.maps.UnitSystem.METRIC
+//     })
+//     .then((response) => {
+//         directionsRenderer.setDirections(response);
+//         console.log(response);
+//     })
+//     .catch((e) => window.alert("Direction request failed due to " + status));
+// }
 
 // function calcRoute(directionsService, directionsRenderer){
 //     var request ={
