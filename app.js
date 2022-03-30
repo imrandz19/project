@@ -1,6 +1,6 @@
 var mapProp = {
-    center:new google.maps.LatLng({lat: 43.856430, lng: 18.413029}),
-    zoom:11,
+    center: new google.maps.LatLng({lat: 43.856430, lng: 18.413029}),
+    zoom: 11,
 }
 
 var map = new google.maps.Map(document.getElementById("googleMap"),mapProp);
@@ -21,14 +21,18 @@ function calculateDistance(){
     directionsService.route(request, function(result, status) {
         if (status === google.maps.DirectionsStatus.OK){
             const output = document.querySelector('#output');
-            output.innerHTML = "<div class='alert-info'>"+ document.getElementById("from").value + ".<br/>To: " + document.getElementById("to").value + ".<br/></div>"
+            output.innerHTML = "<div>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance: " + result.routes[0].legs[0].distance.text + ".<br />Duration: " + result.routes[0].legs[0].duration.text + ".</div>";
             directionsDisplay.setDirections(result)
         }
         else {
             directionsDisplay.setDirections({routes: []})
             map.setCenter({lat: 43.856430, lng: 18.413029})
-            output.innerHTML = "<div class='alert-danger'><i class='fas fa-exclamation-triangle'></i>Nemoguće izračunati></div>"
-            
+            map.setZoom(11)
+            output.innerHTML = "<div>Nemoguće izračunati></div>"   
         }
     })
+}
+
+function log(){
+    
 }

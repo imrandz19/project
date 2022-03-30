@@ -1,8 +1,3 @@
-.Dugme{
-    color: red;
-    border-color: aqua;
-    margin: 20px;
-}
 #panel{
     /* position: relative; */
     margin-block: 15px;
@@ -22,7 +17,6 @@
     max-width: 225px;
     padding-right: 50%;
     text-align: center;
-    
     float: left;
 }
 #from{
