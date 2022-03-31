@@ -21,18 +21,14 @@ function calculateDistance(){
     directionsService.route(request, function(result, status) {
         if (status === google.maps.DirectionsStatus.OK){
             const output = document.querySelector('#output');
-            output.innerHTML = "<div>From: " + document.getElementById("from").value + ".<br />To: " + document.getElementById("to").value + ".<br /> Driving distance: " + result.routes[0].legs[0].distance.text + ".<br />Duration: " + result.routes[0].legs[0].duration.text + ".</div>";
+            output.innerHTML = `From: ${document.getElementById("from").value}<br/><br/>To: ${document.getElementById("to").value}<br/><br/>Distance: ${result.routes[0].legs[0].distance.text}<br/><br/>Duration: ${result.routes[0].legs[0].duration.text}`;
             directionsDisplay.setDirections(result)
         }
         else {
             directionsDisplay.setDirections({routes: []})
             map.setCenter({lat: 43.856430, lng: 18.413029})
             map.setZoom(11)
-            output.innerHTML = "<div>Nemoguće izračunati></div>"   
+            output.innerHTML = "<br/><br/><br/>Try again"
         }
     })
-}
-
-function log(){
-    
 }
